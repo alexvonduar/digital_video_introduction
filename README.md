@@ -235,7 +235,7 @@ These schemas are known as subsampling systems and are expressed as a 3 part rat
 
  * `a` is the horizontal sampling reference (usually 4),
  * `x` is the number of chroma samples in the first row of `a` pixels (horizontal resolution in relation to `a`), and
- * `y` is is the numer of changes of chroma samples between the first and seconds rows of `a` pixels.
+ * `y` is the number of changes of chroma samples between the first and seconds rows of `a` pixels.
 
 > An exception to this exists with 4:1:0, which provides a single chroma sample within each `4 x 4` block of luma resolution.
 
@@ -335,7 +335,12 @@ The objects on the frame **move in a 3D way**, the ball can become smaller when 
 
 But we can see that when we apply **motion estimation** the **data to encode is smaller** than using simply delta frame techniques.
 
-![motion estimation vs delta ](/i/comparison_delta_vs_motion_estimation.png "motion estimationvs delta")
+![motion estimation vs delta ](/i/comparison_delta_vs_motion_estimation.png "motion estimation delta")
+
+> ### How real motion compensation would look
+> This technique is applied to all blocks, very often a ball would be partitioned in more than one block.
+>  ![real world motion compensation](/i/real_world_motion_compensation.png "real world motion compensation")
+> Source: https://web.stanford.edu/class/ee398a/handouts/lectures/EE398a_MotionEstimation_2012.pdf
 
 You can [play around with these concepts using jupyter](/frame_difference_vs_motion_estimation_plus_residual.ipynb).
 
@@ -451,7 +456,7 @@ Once we have the partitions, we can make predictions over them. For the [inter p
 
 After we get the residual block (`predicted partition - real partition`), we can **transform** it in a way that lets us know which **pixels we can discard** while keeping the **overall quality**. There are some transformations for this exact behavior.
 
-Although there are [other transformations](https://en.wikipedia.org/wiki/List_of_Fourier-related_transforms#Discrete_transforms), we'll look more closely the discrete cosine transform (DCT). The [**DCT**](https://en.wikipedia.org/wiki/Discrete_cosine_transform) main features are:
+Although there are [other transformations](https://en.wikipedia.org/wiki/List_of_Fourier-related_transforms#Discrete_transforms), we'll look more closely at the discrete cosine transform (DCT). The [**DCT**](https://en.wikipedia.org/wiki/Discrete_cosine_transform) main features are:
 
 * **converts** blocks of **pixels** into  same-sized blocks of **frequency coefficients**.
 * **compacts** energy, making it easy to eliminate spatial redundancy.
@@ -833,6 +838,8 @@ Bitstream Specifications:
 * http://iphome.hhi.de/wiegand/assets/pdfs/2012_12_IEEE-HEVC-Overview.pdf
 * http://phenix.int-evry.fr/jct/doc_end_user/current_document.php?id=7243
 * http://gentlelogic.blogspot.com.br/2011/11/exploring-h264-part-2-h264-bitstream.html
+* https://forum.doom9.org/showthread.php?t=167081
+* https://forum.doom9.org/showthread.php?t=168947
 
 Software:
 
@@ -863,6 +870,7 @@ Encoding Concepts:
 * http://web.ece.ucdavis.edu/cerl/ReliableJPEG/Cung/jpeg.html
 * http://www.adobe.com/devnet/adobe-media-server/articles/h264_encoding.html
 * https://prezi.com/8m7thtvl4ywr/mp3-and-aac-explained/
+* https://blogs.gnome.org/rbultje/2016/12/13/overview-of-the-vp9-video-codec/
 
 Video Sequences for Testing:
 
@@ -922,3 +930,4 @@ Miscellaneous:
 * https://www.youtube.com/watch?v=LFXN9PiOGtY
 * https://www.youtube.com/watch?v=Lto-ajuqW3w&list=PLzH6n4zXuckpKAj1_88VS-8Z6yn9zX_P6
 * https://www.youtube.com/watch?v=LWxu4rkZBLw
+* https://web.stanford.edu/class/ee398a/handouts/lectures/EE398a_MotionEstimation_2012.pdf
